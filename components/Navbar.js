@@ -1,9 +1,13 @@
+import Cookies from "js-cookie";
 import Link from "next/link";
 
 const Navbar = () => {
+  const logout = () => {
+    Cookies.remove("student");
+  };
   return (
     <div className="flex justify-around items-center text-black">
-      <Link href="/" className="font-bold text-lg">
+      <Link href="/student" className="font-bold text-lg">
         TP
       </Link>
       <ul className="flex">
@@ -31,7 +35,9 @@ const Navbar = () => {
               <Link href="/profile">My Profile</Link>
             </li>
             <li className="dropdown-item mb-0">
-              <Link href="#">Logout</Link>
+              <Link href="" onClick={logout}>
+                Logout
+              </Link>
             </li>
           </ul>
         </li>

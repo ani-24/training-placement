@@ -16,7 +16,7 @@ const Sidenav = () => {
           <RiDashboardFill />
           Dashboard
         </Link>
-        <Link href="/" className="sidenav-item">
+        <Link href="/admin/manage-student" className="sidenav-item">
           <FaUsersCog />
           Manage Student
         </Link>
