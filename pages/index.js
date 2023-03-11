@@ -1,10 +1,22 @@
 import { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import { useRouter } from "next/router";
+import Router, { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import nProgress from "nprogress";
 
 const Index = () => {
   const router = useRouter();
+
+  Router.events.on("routeChangeStart", (url) => {
+    nProgress.start();
+  });
+  Router.events.on("routeChangeComplete", (url) => {
+    nProgress.done();
+  });
+  Router.events.on("routeChangeError", (url) => {
+    nProgress.done();
+  });
+
   const [student, setStudent] = useState(null);
 
   const [loadPage, setLoadPage] = useState(false);

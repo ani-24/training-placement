@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { FaUsers } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
-import jwt from "jsonwebtoken";
-import axios from "axios";
+// import axios from "axios";
 import { useRouter } from "next/router";
 
 import Cookies from "js-cookie";
@@ -33,7 +32,14 @@ export default function Home() {
     if (sid.trim() !== "" && spass.trim() !== "") {
       setSidError(false);
       setSpassError(false);
-      const res = await axios.post("/api/login", { sid, password: spass });
+      const res = await fetch("/api/login", {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ sid, password: spass }),
+      });
       if (res.status === 200) {
         const maxAge = 3 * 60 * 60;
         Cookies.set("student", sid, { expires: maxAge });
@@ -60,9 +66,13 @@ export default function Home() {
   };
   const handleAdmin = async (e) => {
     e.preventDefault();
-    const res = await axios.post("/api/admin-login", {
-      username: adminUsername,
-      password: adminpass,
+    const res = await fetch("/api/admin-login", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username: adminUsername, password: adminpass }),
     });
     if (res.status === 200) {
       Cookies.set("admin", true);
@@ -73,6 +83,7 @@ export default function Home() {
       router.push("/admin");
     } else {
       setServerError(true);
+      console.log(serverError);
     }
   };
   return (
@@ -108,14 +119,14 @@ export default function Home() {
         </div>
         <div className="p-8">
           {serverError && (
-            <span className="text-red-500 italic font-semibold mb-5 block">
+            <span className="text-red-500 italic font-semibold mb-10 block">
               *Invalid credentials
             </span>
           )}
           {active !== "admin" ? (
             <>
               <form action="#" className="form" onSubmit={handleStudent}>
-                <div className="mb-5">
+                <div className="input-field mb-10">
                   <label htmlFor="username" className="label">
                     Student's Id:
                   </label>
@@ -132,7 +143,7 @@ export default function Home() {
                     </small>
                   )}
                 </div>
-                <div className="mb-5">
+                <div className="input-field mb-10">
                   <label htmlFor="password" className="label">
                     Student's Password:
                   </label>
@@ -156,7 +167,7 @@ export default function Home() {
             </>
           ) : (
             <form action="#" className="form" onSubmit={handleAdmin}>
-              <div className="mb-5">
+              <div className="mb-10 input-field">
                 <label htmlFor="username" className="label">
                   Admin Username:
                 </label>
@@ -168,7 +179,7 @@ export default function Home() {
                   onChange={(e) => setAdminUsername(e.target.value)}
                 />
               </div>
-              <div className="mb-5">
+              <div className="mb-10 input-field">
                 <label htmlFor="password" className="label">
                   Admin Password:
                 </label>

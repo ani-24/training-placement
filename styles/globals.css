@@ -3,11 +3,20 @@
 @tailwind utilities;
 
 @layer components {
+  .input-field {
+    @apply relative w-full;
+  }
+  .label {
+    @apply capitalize text-sm absolute p-2 px-4 bg-white left-2 -translate-y-1/2 text-black/60;
+  }
   .input {
-    @apply w-full py-2 px-4 border-b border-black border-opacity-30 outline-none text-sm;
+    @apply w-full p-4 px-6 border border-black border-opacity-20 outline-none text-sm rounded-md hover:border-opacity-50 focus:border-opacity-50 focus:border-2;
   }
   .button {
-    @apply py-2 px-4 bg-black  text-white rounded-md;
+    @apply flex items-center px-6 py-3 gap-3 bg-black text-white rounded-full border-2 border-black hover:bg-white hover:text-black font-bold duration-300;
+  }
+  .button.disabled {
+    @apply opacity-70 pointer-events-none select-none;
   }
   .nav-li {
     @apply relative mr-4 py-6;
@@ -23,6 +32,9 @@
   }
   .sidenav-item {
     @apply hover:bg-gray-200 rounded-md mb-2 p-2 md:p-4 flex flex-col md:flex-row items-center gap-2 text-center;
+  }
+  .sidenav-item.active {
+    @apply bg-gray-200 relative before:absolute before:h-1/2 before:w-1 before:rounded-full before:bg-black before:left-0 before:top-1/2 before:-translate-y-1/2;
   }
   .sidenav-text {
     @apply text-[12px] md:text-base;

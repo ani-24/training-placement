@@ -1,40 +1,48 @@
-import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import Sidenav from "../components/Sidenav";
+import About from "../components/About";
+import Student from "../models/student";
+import mongoose from "mongoose";
+import Education from "../components/Education";
+import Internship from "../components/Internship";
 
-import { HiAcademicCap } from "react-icons/hi";
-import { BsInfoCircleFill } from "react-icons/bs";
-import { GrUserWorker } from "react-icons/gr";
-import { GiBrain } from "react-icons/gi";
-import { AiOutlineFileText } from "react-icons/ai";
-
-const Profile = () => {
+const Profile = ({ student }) => {
+  const router = useRouter();
+  const { active } = router.query;
+  useEffect(() => {
+    if (!student) {
+      router.push("/login");
+    }
+    if (!active) {
+      router.push("/profile?active=about");
+    }
+    console.log(student);
+  }, [router]);
   return (
-    <div>
-      <div className="sidenav">
-        <ul>
-          <Link href="/" className="sidenav-item">
-            <BsInfoCircleFill />
-            About
-          </Link>
-          <Link href="/" className="sidenav-item">
-            <HiAcademicCap />
-            Education
-          </Link>
-          <Link href="/" className="sidenav-item">
-            <GrUserWorker />
-            Internship & Work Experience
-          </Link>
-          <Link href="/" className="sidenav-item">
-            <GiBrain />
-            Technical Skills
-          </Link>
-          <Link href="/" className="sidenav-item">
-            <AiOutlineFileText />
-            My Resume
-          </Link>
-        </ul>
+    <div className="flex h-full w-full">
+      <Sidenav active={active} />
+      <div className="px-5 py-10 w-full h-screen overflow-auto">
+        {active === "about" && <About student={student} />}
+        {active === "education" && <Education student={student} />}
+        {active === "internship" && <Internship student={student} />}
       </div>
     </div>
   );
 };
+
+export async function getServerSideProps(context) {
+  if (!mongoose.connections[0].readyState) {
+    mongoose.connect(process.env.MONGO_URI);
+  }
+
+  const sid = context.req.cookies["student"];
+  if (sid) {
+    const student = await Student.findOne({ sid });
+    return { props: { student: JSON.parse(JSON.stringify(student)) } };
+  } else {
+    return { props: { student: false } };
+  }
+}
 
 export default Profile;

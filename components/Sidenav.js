@@ -1,36 +1,59 @@
 import Link from "next/link";
-import { RiDashboardFill } from "react-icons/ri";
-import { AiFillHome } from "react-icons/ai";
-import { FaUserCircle, FaUsersCog, FaWrench } from "react-icons/fa";
-import { BsPencilSquare } from "react-icons/bs";
 
-const Sidenav = () => {
+import { HiAcademicCap } from "react-icons/hi";
+import { BsInfoCircleFill } from "react-icons/bs";
+import { GrUserWorker } from "react-icons/gr";
+import { GiBrain } from "react-icons/gi";
+import { AiOutlineFileText, AiOutlineLogout } from "react-icons/ai";
+import Cookies from "js-cookie";
+
+const Sidenav = ({ active }) => {
+  const logout = () => {
+    Cookies.remove("student");
+  };
   return (
     <div className="sidenav">
       <ul>
-        <Link href="/" className="sidenav-item">
-          <AiFillHome />
-          <span className="sidenav-text">Home</span>
+        <Link
+          href="/profile?active=about"
+          className={`sidenav-item ${active === "about" ? "active" : ""}`}
+        >
+          <BsInfoCircleFill />
+          About
         </Link>
-        <Link href="/" className="sidenav-item">
-          <RiDashboardFill />
-          <span className="sidenav-text">Dashboard</span>
+        <Link
+          href="/profile?active=education"
+          className={`sidenav-item ${active === "education" ? "active" : ""}`}
+        >
+          <HiAcademicCap />
+          Education
         </Link>
-        <Link href="/admin/manage-student" className="sidenav-item">
-          <FaUsersCog />
-          <span className="sidenav-text">Manage Student</span>
+        <Link
+          href="/profile?active=internship"
+          className={`sidenav-item ${active === "internship" ? "active" : ""}`}
+        >
+          <GrUserWorker />
+          Internship & Work Experience
         </Link>
-        <Link href="/" className="sidenav-item">
-          <FaWrench />
-          <span className="sidenav-text">Manage Recruiter</span>
+        <Link
+          href="/profile?active=technical-skills"
+          className={`sidenav-item ${
+            active === "technical-skills" ? "active" : ""
+          }`}
+        >
+          <GiBrain />
+          Technical Skills
         </Link>
-        <Link href="/" className="sidenav-item">
-          <BsPencilSquare />
-          <span className="sidenav-text">Placement Record</span>
+        <Link
+          href="/profile?active=resume"
+          className={`sidenav-item ${active === "resume" ? "active" : ""}`}
+        >
+          <AiOutlineFileText />
+          My Resume
         </Link>
-        <Link href="/" className="sidenav-item">
-          <FaUserCircle />
-          <div className="sidenav-text">Profile</div>
+        <Link href="/" className={`sidenav-item`} onClick={logout}>
+          <AiOutlineLogout />
+          Logout
         </Link>
       </ul>
     </div>

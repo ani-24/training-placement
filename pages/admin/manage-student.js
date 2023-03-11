@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Sidenav from "../../components/Sidenav";
-import axios from "axios";
+import AdminSidenav from "../../components/AdminSidenav";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import toast, { Toaster } from "react-hot-toast";
 
 const ManageStudent = () => {
   const [sid, setSid] = useState("");
@@ -22,24 +22,35 @@ const ManageStudent = () => {
   const handleSubmit = async (e) => {
     console.log(sid);
     e.preventDefault();
-    const res = await axios.post("/api/students", { sid });
+    const adding = toast.loading("Adding...");
+    const res = await fetch("/api/students", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ sid }),
+    });
     if (res) {
+      toast.success("Student added", { id: adding });
       setSid("");
     } else {
       if (res.status === 500) {
+        toast.error(`Error: ${res.data}`);
         console.log(res.data);
       }
     }
   };
   return (
     <>
+      <Toaster />
       {loadPage && (
         <div className="flex">
-          <Sidenav />
+          <AdminSidenav />
           <div className="h-screen w-full flex justify-center items-center">
-            <div className="bg-white p-8 shadow-2xl rounded-lg">
+            <div className="bg-white p-8 shadow-2xl rounded-lg w-[400px]">
               <form action="#" className="form" onSubmit={handleSubmit}>
-                <div className="mb-5">
+                <div className="mb-5 input-field">
                   <label htmlFor="username" className="label">
                     Student's Id:
                   </label>

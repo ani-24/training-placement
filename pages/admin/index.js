@@ -1,7 +1,7 @@
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import Sidenav from "../../components/Sidenav";
+import AdminSidenav from "../../components/AdminSidenav";
 
 const Index = () => {
   const router = useRouter();
@@ -21,7 +21,7 @@ const Index = () => {
     <div>
       {loadPage && (
         <>
-          <Sidenav />
+          <AdminSidenav />
         </>
       )}
     </div>
