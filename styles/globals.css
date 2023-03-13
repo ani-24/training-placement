@@ -18,6 +18,9 @@
   .button.disabled {
     @apply opacity-70 pointer-events-none select-none;
   }
+  .button--secondary {
+    @apply text-sm font-normal bg-transparent text-black;
+  }
   .nav-li {
     @apply relative mr-4 py-6;
   }

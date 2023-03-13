@@ -14,7 +14,6 @@ const student = new Schema(
     password: {
       type: String,
       required: true,
-      default: "abcd@123",
       sparse: true,
     },
     avatar: {
@@ -53,13 +52,25 @@ const student = new Schema(
         jobDescription: String,
       },
     ],
+    skills: [
+      {
+        skill: String,
+        level: String,
+      },
+    ],
+    resume: String,
   },
   { timestamps: true }
 );
 
 student.pre("save", async function (next) {
-  this.password = await bcrypt.hash(this.password, 10);
-  next();
+  if (this.isModified("password")) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+    return next();
+  } else {
+    return next();
+  }
 });
 
 mongoose.models = {};

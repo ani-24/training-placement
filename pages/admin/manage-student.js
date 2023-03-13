@@ -31,14 +31,11 @@ const ManageStudent = () => {
       },
       body: JSON.stringify({ sid }),
     });
-    if (res) {
-      toast.success("Student added", { id: adding });
+    if (res.status === 201) {
+      toast.success("Added", { id: adding });
       setSid("");
     } else {
-      if (res.status === 500) {
-        toast.error(`Error: ${res.data}`);
-        console.log(res.data);
-      }
+      toast.error(`Error in adding the student`, { id: adding });
     }
   };
   return (

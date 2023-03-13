@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { RiDashboardFill } from "react-icons/ri";
-import { AiFillHome } from "react-icons/ai";
+import { AiFillHome, AiOutlineLogout } from "react-icons/ai";
 import { FaUserCircle, FaUsersCog, FaWrench } from "react-icons/fa";
 import { BsPencilSquare } from "react-icons/bs";
+import Cookies from "js-cookie";
 
 const Sidenav = () => {
   const logout = () => {

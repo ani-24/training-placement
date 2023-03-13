@@ -325,7 +325,7 @@ const Internship = ({ student }) => {
             </div>
           </div>
         ) : (
-          <div>
+          <div className="pb-10">
             {internship.map((el, idx) => (
               <div key={el._id}>
                 <div className="border-b p-10">
@@ -338,7 +338,7 @@ const Internship = ({ student }) => {
                         setModal(true);
                         setIndex(idx);
                       }}
-                      className="button text-sm font-normal bg-transparent text-black"
+                      className="button button--secondary"
                     >
                       <FaPencilAlt /> Update
                     </button>

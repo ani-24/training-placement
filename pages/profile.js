@@ -6,6 +6,8 @@ import Student from "../models/student";
 import mongoose from "mongoose";
 import Education from "../components/Education";
 import Internship from "../components/Internship";
+import TechnicalSkills from "../components/TechnicalSkills";
+import Resume from "../components/Resume";
 
 const Profile = ({ student }) => {
   const router = useRouter();
@@ -17,7 +19,6 @@ const Profile = ({ student }) => {
     if (!active) {
       router.push("/profile?active=about");
     }
-    console.log(student);
   }, [router]);
   return (
     <div className="flex h-full w-full">
@@ -26,6 +27,8 @@ const Profile = ({ student }) => {
         {active === "about" && <About student={student} />}
         {active === "education" && <Education student={student} />}
         {active === "internship" && <Internship student={student} />}
+        {active === "technical-skills" && <TechnicalSkills student={student} />}
+        {active === "resume" && <Resume student={student} />}
       </div>
     </div>
   );

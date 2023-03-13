@@ -4,17 +4,16 @@ import Student from "../../models/student";
 const handler = async (req, res) => {
   if (req.method === "POST") {
     const { sid } = req.body;
-    console.log(sid);
     if (sid) {
       try {
         const student = new Student({
           sid,
+          password: process.env.STUDENT_DEFAULT_PASS,
         });
-        // Create new user
-        const studentcreated = await student.save();
-        return res.status(200).send(studentcreated);
+        await student.save();
+        res.status(201).send(student);
       } catch (error) {
-        return res.status(500).send(error.message);
+        res.status(500).send(error.message);
       }
     } else {
       res.status(422).send("data_incomplete");

@@ -83,7 +83,6 @@ export default function Home() {
       router.push("/admin");
     } else {
       setServerError(true);
-      console.log(serverError);
     }
   };
   return (
