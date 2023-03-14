@@ -18,6 +18,7 @@ const handler = async (req, res) => {
         jobDescription,
         _id,
       } = req.body;
+
       const query = { sid: req.body.sid };
 
       const updateInternship = {

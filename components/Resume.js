@@ -31,14 +31,18 @@ const Resume = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(selectedFile);
-    const res = await fetch("/api/upload", {
+    const data = new FormData();
+    data.append("file", selectedFile);
+    console.log(data.file);
+    const res = await fetch("/api/multer", {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ file: selectedFile }),
+      body: JSON.stringify({
+        file: selectedFile,
+      }),
     });
     if (res.status === 200) {
       console.log(res);
@@ -56,7 +60,7 @@ const Resume = () => {
           You have not added your resume yet. Please click here to add your
           resume.
         </p>
-        <form action="/api/upload" method="POST">
+        <form action="/api/multer" method="POST">
           <label
             htmlFor="resume"
             className="inline-flex button cursor-pointer mb-10"
@@ -65,7 +69,6 @@ const Resume = () => {
           </label>
           <input
             type="file"
-            accept=".pdf"
             id="resume"
             className="hidden"
             name="file"

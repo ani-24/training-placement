@@ -16,8 +16,10 @@ const handler = async (req, res) => {
         salary,
         isWorking,
         jobDescription,
+        sid,
       } = req.body;
-      const student = await Student.findOne({ sid: req.body.sid });
+
+      const student = await Student.findOne({ sid });
 
       student.internship.push({
         companyName,
