@@ -4,6 +4,7 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { BsFillCheckCircleFill, BsPencilSquare } from "react-icons/bs";
 import { BiTrash } from "react-icons/bi";
 import Modal from "./Modal";
+import Overlay from "./Overlay";
 
 const ModalBox = ({ student, id }) => {
   const [skill, setSkill] = useState(
@@ -155,10 +156,9 @@ const TechnicalSkills = ({ student }) => {
     <>
       <Toaster />
       {modal && (
-        <div
-          className="h-screen w-screen top-0 left-0 bg-black opacity-70 z-40 fixed"
-          onClick={() => setModal(false)}
-        ></div>
+        <div onClick={() => setModal(false)}>
+          <Overlay />
+        </div>
       )}
       {modal &&
         (id !== "" ? (

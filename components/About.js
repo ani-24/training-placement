@@ -14,9 +14,27 @@ const About = ({ student }) => {
   const [batch, setBatch] = useState(student.batch);
   const [roll, setRoll] = useState(student.roll);
 
+  const [preview, setPreview] = useState("");
+  const [selectedImage, setSelectedImage] = useState("");
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const updating = toast.loading("Updating...");
+    let avatarUrl = avatar;
+    if (preview) {
+      const formData = new FormData();
+      formData.append("file", selectedImage);
+      formData.append("upload_preset", "training-placement");
+      const data = await fetch(
+        "https://api.cloudinary.com/v1_1/drwuytqnc/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      ).then((r) => r.json());
+
+      avatarUrl = data.secure_url;
+    }
     const res = await fetch("/api/update", {
       method: "POST",
       headers: {
@@ -25,6 +43,7 @@ const About = ({ student }) => {
       },
       body: JSON.stringify({
         sid: student.sid,
+        avatar: avatarUrl,
         fname,
         lname,
         dob,
@@ -45,6 +64,25 @@ const About = ({ student }) => {
     Cookies.remove("student");
   };
 
+  const onSelectFile = (e) => {
+    if (!e.target.files || e.target.files.length === 0) {
+      setSelectedImage(undefined);
+      return;
+    }
+
+    setSelectedImage(e.target.files[0]);
+  };
+
+  useEffect(() => {
+    if (!selectedImage) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(selectedImage);
+    setPreview(objectUrl);
+  }, [selectedImage]);
+
   return (
     <>
       <Toaster />
@@ -54,10 +92,10 @@ const About = ({ student }) => {
       >
         <label
           htmlFor="avatar"
-          className="h-24 w-24 rounded-full overflow-hidden relative group cursor-pointer"
+          className="h-24 w-24 rounded-full overflow-hidden relative group cursor-pointer border"
         >
           <Image
-            src={avatar}
+            src={preview ? preview : avatar}
             alt={fname ? fname : "User profile"}
             width={96}
             height={96}
@@ -67,6 +105,13 @@ const About = ({ student }) => {
             <RiGalleryUploadFill />
           </div>
         </label>
+        <input
+          type="file"
+          className="hidden"
+          id="avatar"
+          name="file"
+          onChange={onSelectFile}
+        />
         <div className="grid lg:grid-cols-2 gap-8 w-3/4">
           <div className="input-field">
             <label htmlFor="fname" className="label">

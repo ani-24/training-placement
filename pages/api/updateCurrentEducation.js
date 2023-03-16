@@ -3,17 +3,29 @@ import Student from "../../models/student";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
+    const {
+      sid,
+      program,
+      branch,
+      semester,
+      rollNo,
+      startDate,
+      endDate,
+      score,
+    } = req.body;
+
     if (req.body) {
       const student = await Student.findOneAndUpdate(
-        { sid: req.body.sid },
+        { sid },
         {
-          education: {
-            program: req.body.program,
-            branch: req.body.major,
-            semester: req.body.semester,
-            instituteRollNo: req.body.roll,
-            courseStartDate: req.body.courseStart,
-            courseEndDate: req.body.courseEnd,
+          currentEducation: {
+            program,
+            branch,
+            semester,
+            rollNo,
+            startDate,
+            endDate,
+            score,
           },
         }
       );

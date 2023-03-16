@@ -7,14 +7,7 @@ const handler = async (req, res) => {
       const student = await Student.findOneAndUpdate(
         { sid: req.body.sid },
         {
-          avatar: req.body.avatar,
-          fname: req.body.fname,
-          lname: req.body.lname,
-          dob: req.body.dob,
-          college: req.body.college,
-          course: req.body.course,
-          batch: req.body.batch,
-          roll: req.body.roll,
+          resume: req.body.resume,
         }
       );
       if (student) {

@@ -29,13 +29,27 @@ const student = new Schema(
     course: String,
     batch: String,
     roll: String,
-    education: {
+    classXEducation: {
+      schoolName: String,
+      board: String,
+      endYear: String,
+      score: String,
+    },
+    classXIIEducation: {
+      schoolName: String,
+      board: String,
+      stream: String,
+      endYear: String,
+      score: String,
+    },
+    currentEducation: {
       program: String,
       branch: String,
       semester: String,
-      instituteRollNo: String,
-      courseStartDate: String,
-      courseEndDate: String,
+      rollNo: String,
+      startDate: String,
+      endDate: String,
+      score: String,
     },
     internship: [
       {

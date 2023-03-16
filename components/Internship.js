@@ -4,6 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { FaPencilAlt } from "react-icons/fa";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import Modal from "./Modal";
+import Overlay from "./Overlay";
 
 const ModalBox = ({ internship, student }) => {
   const [data, setData] = useState(
@@ -290,10 +291,9 @@ const Internship = ({ student }) => {
     <>
       <Toaster />
       {modal && (
-        <div
-          className="h-screen w-screen top-0 left-0 bg-black opacity-70 z-40 fixed"
-          onClick={() => setModal(false)}
-        ></div>
+        <div onClick={() => setModal(false)}>
+          <Overlay />
+        </div>
       )}
       {modal ? (
         index != null ? (
@@ -330,9 +330,28 @@ const Internship = ({ student }) => {
               <div key={el._id}>
                 <div className="border-b p-10">
                   <div className="flex justify-between items-center">
-                    <p className="text-lg font-bold uppercase mb-5">
-                      {el.companyName}
-                    </p>
+                    <div className="mb-5 border-b pb-2 border-black border-opacity-60">
+                      <p className="text-xl font-bold uppercase mb-1">
+                        {el.companyName}
+                      </p>
+                      {el.startDate ? (
+                        el.endDate ? (
+                          <small>
+                            {`${new Date(el.startDate).toLocaleString("en-us", {
+                              month: "long",
+                            })} ${new Date(el.startDate).getFullYear()}`}{" "}
+                            -{" "}
+                            {`${new Date(el.endDate).toLocaleString("en-us", {
+                              month: "long",
+                            })} ${new Date(el.endDate).getFullYear()}`}
+                          </small>
+                        ) : (
+                          <small className="italic">Currently Working</small>
+                        )
+                      ) : (
+                        ""
+                      )}
+                    </div>
                     <button
                       onClick={() => {
                         setModal(true);
