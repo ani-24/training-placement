@@ -42,8 +42,6 @@ const Resume = ({ student }) => {
       }
     ).then((r) => r.json());
 
-    console.log(data.secure_url);
-
     const res = await fetch("/api/addResume", {
       method: "POST",
       headers: {
@@ -59,6 +57,7 @@ const Resume = ({ student }) => {
     if (res.status === 201) {
       toast.success("Uploaded", { id: uploading });
       setResume(data.secure_url);
+      setPreview();
     } else {
       toast.error(`Error: ${res.data}`, { id: uploading });
     }
@@ -116,11 +115,58 @@ const Resume = ({ student }) => {
           </div>
         </div>
       ) : (
-        <object data={resume} type="application/pdf" width="100%" height="100%">
-          <p>
-            Alternative text - include a link <a href={preview}>to the PDF!</a>
-          </p>
-        </object>
+        <>
+          <object
+            data={resume}
+            type="application/pdf"
+            width="100%"
+            height="80%"
+          >
+            <p>
+              Alternative text - include a link{" "}
+              <a href={preview}>to the PDF!</a>
+            </p>
+          </object>
+          <div className="flex my-10 justify-center items-center border-t py-10">
+            <form onSubmit={handleSubmit} className="text-center w-full">
+              <label
+                htmlFor="resume"
+                className="inline-flex button cursor-pointer mb-10"
+              >
+                <AiOutlineFileSearch /> Change Resume
+              </label>
+              <input
+                type="file"
+                id="resume"
+                className="hidden"
+                accept=".pdf"
+                name="file"
+                onChange={onSelectFile}
+              />
+              {preview && (
+                <>
+                  <object
+                    data={preview}
+                    type="application/pdf"
+                    width="100%"
+                    height={500}
+                  >
+                    <p>
+                      Alternative text - include a link{" "}
+                      <a href={preview}>to the PDF!</a>
+                    </p>
+                  </object>
+                  <button
+                    type="submit"
+                    className="button inline-flex button cursor-pointer mt-10"
+                  >
+                    <GoCloudUpload /> Upload Resume
+                  </button>
+                </>
+              )}
+            </form>
+          </div>
+        </>
       )}
     </>
   );

@@ -3,9 +3,8 @@ import Student from "../../models/student";
 
 const handler = async (req, res) => {
   if (req.method === "POST") {
-    const { sid, schoolName, board, endYear, score } = req.body;
-
     if (req.body) {
+      const { sid, schoolName, board, endYear, score } = req.body;
       const student = await Student.findOneAndUpdate(
         { sid },
         {

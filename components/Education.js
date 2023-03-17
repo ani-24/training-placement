@@ -496,7 +496,7 @@ const Education = ({ student }) => {
                   {new Date(student.classXEducation.endYear).getFullYear()}
                 </small>
               ) : (
-                <small className="italic">Currently studying</small>
+                ""
               )}
             </div>
             <button
@@ -530,16 +530,16 @@ const Education = ({ student }) => {
           <div className="flex justify-between items-center">
             <div className="mb-5 border-b pb-2 border-black border-opacity-60">
               <p className="text-xl font-bold mb-1">Class XIIth:</p>
-              {student.classXEducation?.endYear ? (
+              {student.classXIIEducation?.endYear ? (
                 <small>
-                  {new Date(student.classXEducation.endYear).toLocaleString(
+                  {new Date(student.classXIIEducation.endYear).toLocaleString(
                     "en-us",
                     { month: "long" }
                   )}{" "}
-                  {new Date(student.classXEducation.endYear).getFullYear()}
+                  {new Date(student.classXIIEducation.endYear).getFullYear()}
                 </small>
               ) : (
-                <small className="italic">Currently studying</small>
+                ""
               )}
             </div>
             <button

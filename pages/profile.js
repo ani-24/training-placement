@@ -8,6 +8,7 @@ import Education from "../components/Education";
 import Internship from "../components/Internship";
 import TechnicalSkills from "../components/TechnicalSkills";
 import Resume from "../components/Resume";
+import Password from "../components/Password";
 
 const Profile = ({ student }) => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const Profile = ({ student }) => {
         {active === "internship" && <Internship student={student} />}
         {active === "technical-skills" && <TechnicalSkills student={student} />}
         {active === "resume" && <Resume student={student} />}
+        {active === "password" && <Password student={student} />}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { HiAcademicCap } from "react-icons/hi";
-import { BsInfoCircleFill } from "react-icons/bs";
+import { BsInfoCircleFill, BsKeyFill } from "react-icons/bs";
 import { GrUserWorker } from "react-icons/gr";
 import { GiBrain } from "react-icons/gi";
 import { AiOutlineFileText, AiOutlineLogout } from "react-icons/ai";
@@ -50,6 +50,13 @@ const Sidenav = ({ active }) => {
         >
           <AiOutlineFileText />
           My Resume
+        </Link>
+        <Link
+          href="/profile?active=password"
+          className={`sidenav-item ${active === "password" ? "active" : ""}`}
+        >
+          <BsKeyFill />
+          Change Password
         </Link>
         <Link href="/" className={`sidenav-item`} onClick={logout}>
           <AiOutlineLogout />
