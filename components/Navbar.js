@@ -6,7 +6,7 @@ const Navbar = () => {
     Cookies.remove("student");
   };
   return (
-    <div className="flex justify-around items-center text-black">
+    <div className="flex justify-around items-center text-black border-b">
       <Link href="/student" className="font-bold text-lg">
         TP
       </Link>
@@ -15,7 +15,7 @@ const Navbar = () => {
           <Link href="#">Dashboard</Link>
         </li>
         <li className="nav-li">
-          <Link href="#">Job Profile</Link>
+          <Link href="/JobProfile">Job Profile</Link>
         </li>
         <li className="nav-li group">
           <Link href="#">Interview</Link>

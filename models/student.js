@@ -11,6 +11,7 @@ const student = new Schema(
       unique: true,
       sparse: true,
     },
+    email: { type: String, required: true, unique: true },
     password: {
       type: String,
       required: true,

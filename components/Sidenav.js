@@ -4,7 +4,7 @@ import { HiAcademicCap } from "react-icons/hi";
 import { BsInfoCircleFill, BsKeyFill } from "react-icons/bs";
 import { GrUserWorker } from "react-icons/gr";
 import { GiBrain } from "react-icons/gi";
-import { AiOutlineFileText, AiOutlineLogout } from "react-icons/ai";
+import { AiFillHome, AiOutlineFileText, AiOutlineLogout } from "react-icons/ai";
 import Cookies from "js-cookie";
 
 const Sidenav = ({ active }) => {
@@ -14,6 +14,10 @@ const Sidenav = ({ active }) => {
   return (
     <div className="sidenav">
       <ul>
+        <Link href="/" className={`sidenav-item`}>
+          <AiFillHome />
+          Home
+        </Link>
         <Link
           href="/profile?active=about"
           className={`sidenav-item ${active === "about" ? "active" : ""}`}

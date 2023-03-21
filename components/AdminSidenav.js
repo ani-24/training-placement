@@ -20,11 +20,11 @@ const Sidenav = () => {
           <RiDashboardFill />
           <span className="sidenav-text">Dashboard</span>
         </Link>
-        <Link href="/admin/manage-student" className="sidenav-item">
+        <Link href="/admin?active=manage-student" className="sidenav-item">
           <FaUsersCog />
           <span className="sidenav-text">Manage Student</span>
         </Link>
-        <Link href="/" className="sidenav-item">
+        <Link href="/admin?active=manage-recruiter" className="sidenav-item">
           <FaWrench />
           <span className="sidenav-text">Manage Recruiter</span>
         </Link>

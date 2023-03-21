@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply selection:bg-black selection:text-white;
+  }
+}
+
 @layer components {
   .input-field {
     @apply relative w-full;
